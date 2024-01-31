@@ -8,12 +8,14 @@ class PlayerController:
         self.view = view
 
     def update(self, delta_time):
+        self.model.slowdown(delta_time)
         self.model.move(delta_time)
         self.view.move(self.model.position, self.model.radius, self.model.position.angle)
         self.model.accelarate(delta_time)
-        self.model.turn()
+        self.model.turn(delta_time)
 
     def motion(self, event: tkinter.Event):
+        return
         self.view.spaceship.set_angle(Position(event.x, event.y))
 
     def brake(self):

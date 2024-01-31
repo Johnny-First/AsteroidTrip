@@ -13,6 +13,9 @@ class AsteroidView:
         self.HEIGHT = height
         self.root = root
         self.canvas = canvas
+        # self.meteora_pict = tkinter.Image()
+        #self.l = tkinter.Label(image=self.meteora_pict)
+        #self.l.grid(row=0, column=0)
         self.view_asteroids = [canvas.create_oval(*[-1 for _ in range(4)], fill="red") for _ in range(50)]
 
     def set_position(self, player_position, player_angle, asteroids):

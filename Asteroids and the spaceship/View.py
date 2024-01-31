@@ -1,8 +1,7 @@
 import tkinter
 from player.PlayerView import *
-import time
 from asteroids.AsteroidView import *
-
+from UI import *
 
 
 class View:
@@ -11,32 +10,42 @@ class View:
         self.root = tkinter.Tk()
         self.root.geometry(f"{self.HEIGHT}x{self.HEIGHT}+0+0")
         self.canvas = tkinter.Canvas(height=self.HEIGHT, width=self.HEIGHT, background="#11003b")
-        self.bg = tkinter.PhotoImage(file="stars.png")
+
+
+        self.bg = tkinter.PhotoImage(file="stars_1.png")
         self.canvas.create_image(500, 500, image=self.bg)
 
-        self.canvas.pack()
+        self.canvas.grid(row=0, column=0)
 
 
         self.root.update()
         self.asteroid_view = AsteroidView(self.HEIGHT, self.root, self.canvas)
         self.player_view = PlayerView(self.HEIGHT, self.root, self.canvas)
+        self.ui = UI(self.HEIGHT, self.root, self.canvas)
 
     def on_motion(self, motion):
         self.root.bind("<Motion>", motion)
 
-    def start_view(self):
+    def start_view(self, on_restart):
+        self.ui.on_restart = on_restart
         self.player_view.start_view()
         self.game_loop()
 
     def game_loop(self):
-        global delta_time
+        delta_time = 0
         while True:
-            self.root.update()
+            s_t = time()
             self.update_controller(delta_time)
-            time.sleep(delta_time)
+            self.root.update()
+            e_t = time()
+            delta_time = e_t - s_t
+
 
     def on_motion(self, func):
         self.root.bind("<Motion>", func)
 
     def on_update(self, function):
         self.update_controller = function
+
+    def restart(self):
+        self.ui.restart()

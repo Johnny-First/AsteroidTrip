@@ -8,9 +8,10 @@ class Bullet():
 
 
 class PlayerModel():
-    turn_speed = pi/32
+    turn_speed = 1.7*pi
 
     def __init__(self, x=0, y=0, angle=3*pi / 2, base_acceleration=1000, speed=0, radius=30):
+        self.score = 0
         self.position = Position(x, y, angle)
         self.base_acceleration = base_acceleration
         self.speed = speed
@@ -20,13 +21,15 @@ class PlayerModel():
         self.is_accelerating = False
         self.turning_system = TurningSystem()
 
-    def turn(self):
-        self.position.angle += self.turn_speed * self.turning_system.get_direction()
+    def turn(self, delta_time):
+        self.position.angle += self.turn_speed * self.turning_system.get_direction() * delta_time
 
-    def slowdown(self):
-        if self.speed < 4:
-            self.speed = 0
-        self.speed -= self.speed/4
+    def slowdown(self, delta_time):
+        if self.turning_system.is_braking:
+            self.speed -= self.base_acceleration * delta_time
+            if self.speed < 4:
+                self.speed = 0
+
 
     def shoot(self):
         # спавнит буллеты в направлении angle
@@ -46,3 +49,6 @@ class PlayerModel():
 
     def is_alive(self):
         return self.is_alive
+
+    def restart(self):
+        self.__init__(x=0, y=0, angle=3*pi / 2, base_acceleration=1000, speed=0, radius=30)

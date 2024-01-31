@@ -11,8 +11,8 @@ class AsteroidGenerator:
         self.player_position = player_position
 
     def random_asteroid(self, direction: Position):
-        center = self.player_position
-        r = 800
+        center = direction
+        r = randint(800, 999)
         angle = random()*pi*2
         x = cos(angle).real * r + center.x
         y = sin(angle).real * r + center.y

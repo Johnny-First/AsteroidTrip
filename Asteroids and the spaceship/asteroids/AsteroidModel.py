@@ -3,10 +3,11 @@ from asteroids.AsteroidGenerator import *
 
 
 class AsteroidModel:
+    number_of_asteroids = 49
     def __init__(self):
         self.asteroid_generator = AsteroidGenerator()
         self.player_position = Position()
-        self.asteroids = self.asteroid_generator.add_asteroids([], 49, self.player_position)
+        self.asteroids = self.asteroid_generator.add_asteroids([], self.number_of_asteroids, self.player_position)
 
     def update(self, delta_time):
         for asteroid in self.asteroids:
@@ -22,3 +23,7 @@ class AsteroidModel:
     def spawn_asteroids(self, how_many=5):
         if len(self.asteroids) < how_many:
             self.asteroid_generator.add_asteroids(self.asteroids, how_many - len(self.asteroids), self.player_position)
+
+    def restart(self):
+        self.player_position = Position(0, 0)
+        self.asteroids = self.asteroid_generator.add_asteroids([], self.number_of_asteroids, self.player_position)
