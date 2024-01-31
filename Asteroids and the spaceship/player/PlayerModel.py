@@ -8,9 +8,9 @@ class Bullet():
 
 
 class PlayerModel():
-    turn_speed = 1.7*pi
+    turn_speed = 1.66*pi
 
-    def __init__(self, x=0, y=0, angle=3*pi / 2, base_acceleration=1000, speed=0, radius=30):
+    def __init__(self, x=0, y=0, angle=3*pi / 2, base_acceleration=1000, speed=0, radius=20):
         self.score = 0
         self.position = Position(x, y, angle)
         self.base_acceleration = base_acceleration
@@ -51,4 +51,4 @@ class PlayerModel():
         return self.is_alive
 
     def restart(self):
-        self.__init__(x=0, y=0, angle=3*pi / 2, base_acceleration=1000, speed=0, radius=30)
+        self.__init__()

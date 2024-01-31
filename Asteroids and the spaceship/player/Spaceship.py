@@ -24,10 +24,10 @@ class Spaceship:
 
             angle = -pi/2
 
-            pos = [cos(angle + pi / 20) * 75, sin(angle + pi / 20) * 75,
-                   cos(angle - pi / 20) * 75, sin(angle - pi / 20) * 75,
-                   cos(angle - 3 / 4 * pi) * 25, sin(angle - 3 / 4 * pi) * 25,
-                   cos(angle + 3 / 4 * pi) * 25, sin(angle + 3 / 4 * pi) * 25]
+            pos = [cos(angle + pi / 20) * radius*3, sin(angle + pi / 20) * radius*3,
+                   cos(angle - pi / 20) * radius*3, sin(angle - pi / 20) * radius*3,
+                   cos(angle - 3 / 4 * pi) * radius, sin(angle - 3 / 4 * pi) * radius,
+                   cos(angle + 3 / 4 * pi) * radius, sin(angle + 3 / 4 * pi) * radius]
             arr = []
             for i in pos:
                 arr.append(i + self.height / 2)
