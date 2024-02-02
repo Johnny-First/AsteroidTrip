@@ -1,4 +1,5 @@
 import tkinter
+from PIL import Image, ImageTk
 from player.PlayerView import *
 from asteroids.AsteroidView import *
 from UI import *
@@ -10,15 +11,12 @@ class View:
         self.root = tkinter.Tk()
         self.root.geometry(f"{self.HEIGHT}x{self.HEIGHT}+0+0")
         self.canvas = tkinter.Canvas(height=self.HEIGHT, width=self.HEIGHT, background="#11003b")
-
-
-        self.bg = tkinter.PhotoImage(file="./stars_1.png")
+        self.bg = tkinter.PhotoImage(file="Asteroids and the spaceship/stars_1.png")
         self.canvas.create_image(500, 500, image=self.bg)
-
         self.canvas.grid(row=0, column=0)
 
-
         self.root.update()
+
         self.asteroid_view = AsteroidView(self.HEIGHT, self.root, self.canvas)
         self.player_view = PlayerView(self.HEIGHT, self.root, self.canvas)
         self.ui = UI(self.HEIGHT, self.root, self.canvas)
@@ -39,7 +37,6 @@ class View:
             self.root.update()
             e_t = time()
             delta_time = e_t - s_t
-
 
     def on_motion(self, func):
         self.root.bind("<Motion>", func)
