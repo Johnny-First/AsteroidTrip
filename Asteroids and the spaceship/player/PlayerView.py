@@ -24,7 +24,7 @@ class PlayerView:
         self.spaceship.set_spaceship(position, radius, angle)
 
     def start_view(self):
-        self.bg1 = tkinter.PhotoImage(file="Asteroids and the spaceship/asteroids/meteora.png", height=50, width=50)
+        #self.bg1 = tkinter.PhotoImage(file="Asteroids and the spaceship/asteroids/meteora.png", height=50, width=50)
         #self.canvas.create_image(500, 500, image=self.bg1)
         #self.spaceship.set_spaceship(Position(1, 1), 50, 1)
         pass
