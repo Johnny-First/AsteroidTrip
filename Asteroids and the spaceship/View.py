@@ -12,8 +12,8 @@ class View:
         self.canvas = tkinter.Canvas(height=self.HEIGHT, width=self.HEIGHT, background="#11003b")
 
 
-        #self.bg = tkinter.PhotoImage(file="Asteroids and the spaceship/stars_1.png")
-        #self.canvas.create_image(500, 500, image=self.bg)
+        self.bg = tkinter.PhotoImage(file="Asteroids and the spaceship/stars_1.png")
+        self.canvas.create_image(500, 500, image=self.bg)
 
         self.canvas.grid(row=0, column=0)
 
