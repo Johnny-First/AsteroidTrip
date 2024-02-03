@@ -28,4 +28,3 @@ class PlayerView:
         #self.canvas.create_image(500, 500, image=self.bg1)
         #self.spaceship.set_spaceship(Position(1, 1), 50, 1)
         pass
-

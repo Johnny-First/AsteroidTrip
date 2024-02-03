@@ -3,6 +3,7 @@ from player.PlayerView import *
 from asteroids.AsteroidView import *
 from UI import *
 
+
 class View:
     def __init__(self):
         self.HEIGHT = 1000
@@ -38,7 +39,6 @@ class View:
             self.root.update()
             e_t = time()
             delta_time = e_t - s_t
-
 
     def on_motion(self, func):
         self.root.bind("<Motion>", func)

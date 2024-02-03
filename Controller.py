@@ -11,6 +11,7 @@ from View import *
 class Controller:
     time_to_score = 0
     game_is_paused = False
+
     def __init__(self, model: Model, view: View):
         self.model = model
         self.view = view
@@ -29,7 +30,6 @@ class Controller:
         self.model.restart()
         self.view.restart()
 
-
     def motion(self, event: tkinter.Event):
         self.player_controller.motion(event)
 
@@ -44,7 +44,6 @@ class Controller:
             self.player_controller.model.turning_system.press_right()
         if key == "s":
             self.player_controller.model.turning_system.press_brake()
-
 
     def key_release(self, key):
         key = str(key)[1]
@@ -72,14 +71,12 @@ class Controller:
         if self.game_is_paused and not self.model.player_model.is_alive:
             delta_time = 0
 
-
         if self.time_to_score > 1:
             self.time_to_score = 0
             self.model.player_model.score += 1
             self.view.ui.update_score(self.model.player_model.score)
         else:
             self.time_to_score += delta_time
-
 
         self.asteroid_controller.update(delta_time, self.player_controller.model.position,
                                         self.player_controller.model.position.angle)

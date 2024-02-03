@@ -3,11 +3,11 @@ from Position import *
 from player.TurningSystem import *
 
 
-class Bullet():
+class Bullet:
     pass
 
 
-class PlayerModel():
+class PlayerModel:
     turn_speed = 1.66*pi
 
     def __init__(self, x=0, y=0, angle=3*pi / 2, base_acceleration=1000, speed=0, radius=20):
@@ -26,10 +26,9 @@ class PlayerModel():
 
     def slowdown(self, delta_time):
         if self.turning_system.is_braking:
-            self.speed -= self.base_acceleration * delta_time
+            self.speed -= self.base_acceleration * 2 * delta_time
             if self.speed < 4:
                 self.speed = 0
-
 
     def shoot(self):
         # спавнит буллеты в направлении angle
