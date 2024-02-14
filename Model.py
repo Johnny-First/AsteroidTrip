@@ -12,5 +12,6 @@ class Model:
             print(f"{object_1}, {object_2} столкнулись!!")
 
     def restart(self):
+
         self.player_model.restart()
         self.asteroid_model.restart()

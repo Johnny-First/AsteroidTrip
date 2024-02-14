@@ -6,6 +6,7 @@ from InputSystem import *
 from asteroids.AsteroidController import *
 from Model import *
 from View import *
+from player.bullets import Bullet
 
 
 class Controller:
@@ -33,8 +34,11 @@ class Controller:
     def motion(self, event: tkinter.Event):
         self.player_controller.motion(event)
 
-    def key_press(self, key):
+    def key_press(self, key: keyboard.Key):
+
         key = str(key)[1]
+        if key == "l":
+            self.player_controller.model.shoot()
 
         if key == "w":
             self.player_controller.model.is_accelerating = True
@@ -67,6 +71,16 @@ class Controller:
                 self.view.ui.death()
                 self.game_is_paused = True
             self.model.player_model.is_alive = False
+
+        ast: Asteroid
+        bul: Bullet
+        ast, bul = self.collision_system.is_collision_bullets_with_asteroids(self.player_controller.model.gun.bullets,
+                                                                             self.asteroid_controller.model.asteroids)
+        if ast and bul:
+            ast.position.x = 100000000
+            bul.position.x = -100000000
+            #self.player_controller.model.gun.bullets.remove(bul)
+
 
         if self.game_is_paused and not self.model.player_model.is_alive:
             delta_time = 0

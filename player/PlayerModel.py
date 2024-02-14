@@ -1,11 +1,8 @@
 from math import *
 from Position import *
 from player.TurningSystem import *
-
-
-class Bullet:
-    pass
-
+import player.bullets
+from player.gun import Gun
 
 class PlayerModel:
     turn_speed = 1.66*pi
@@ -21,6 +18,8 @@ class PlayerModel:
         self.is_accelerating = False
         self.turning_system = TurningSystem()
 
+        self.gun = Gun()
+
     def turn(self, delta_time):
         self.position.angle += self.turn_speed * self.turning_system.get_direction() * delta_time
 
@@ -30,14 +29,19 @@ class PlayerModel:
             if self.speed < 4:
                 self.speed = 0
 
+    def is_able_to_shoot(self):
+        return self.gun.is_able_to_shoot()
+
     def shoot(self):
-        # спавнит буллеты в направлении angle
-        print("пиу пиу пиу")
+        shoot_pos = Position(self.position.x, self.position.y, self.position.angle)
+        self.gun.shoot(shoot_pos, self.speed)
 
     def move(self, delta_time):
         moving = self.speed * delta_time
         self.position.x += moving * cos(self.position.angle)
         self.position.y += moving * sin(self.position.angle)
+
+        self.gun.update(delta_time)
 
     def accelarate(self, delta_time):
         if self.is_accelerating:

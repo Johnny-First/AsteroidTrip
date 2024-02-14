@@ -4,9 +4,6 @@ from math import *
 
 from Position import *
 
-FPS = 60
-delta_time = 1 / FPS
-
 
 class AsteroidView:
     def __init__(self, height, root, canvas: tkinter.Canvas):
