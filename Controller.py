@@ -7,7 +7,8 @@ from asteroids.AsteroidController import *
 from Model import *
 from View import *
 from player.bullets import Bullet
-
+import constants
+from Collections.collectable_controller import CollectableController
 
 class Controller:
     time_to_score = 0
@@ -21,6 +22,7 @@ class Controller:
 
         self.asteroid_controller = AsteroidController(self.model.asteroid_model, self.view.asteroid_view)
         self.player_controller = PlayerController(self.model.player_model, self.view.player_view)
+        self.collectable_controller = CollectableController(self.model.collectable_model, self.view.collectable_view)
 
         self.view.on_motion(self.motion)
         self.input_system = InputSystem(self.key_press, self.key_release)
@@ -38,7 +40,7 @@ class Controller:
 
         key = str(key)[1]
         if key == "l":
-            self.player_controller.model.shoot()
+            self.player_controller.model.is_shooting = True
 
         if key == "w":
             self.player_controller.model.is_accelerating = True
@@ -53,7 +55,8 @@ class Controller:
         key = str(key)[1]
         if key == "r":
             self.model.restart()
-
+        if key == "l":
+            self.player_controller.model.is_shooting = False
         if key == "w":
             self.player_controller.model.is_accelerating = False
         if key == "a":
@@ -77,7 +80,13 @@ class Controller:
         ast, bul = self.collision_system.is_collision_bullets_with_asteroids(self.player_controller.model.gun.bullets,
                                                                              self.asteroid_controller.model.asteroids)
         if ast and bul:
-            ast.position.x = 100000000
+            for asteroid in self.asteroid_controller.model.asteroids:
+                if bul.position.get_distance(asteroid.position) <= constants.bullet_explosion_radius + asteroid.radius:
+                    asteroid.position.x = 100000000
+                elif bul.position.get_distance(asteroid.position) <= constants.bullet_discarding_radius + asteroid.radius:
+                    asteroid.position.angle = bul.position.get_angle_to_direction(asteroid.position)
+
+
             bul.position.x = -100000000
             #self.player_controller.model.gun.bullets.remove(bul)
 
@@ -92,8 +101,12 @@ class Controller:
         else:
             self.time_to_score += delta_time
 
+        self.player_controller.update(delta_time)
+
         self.asteroid_controller.update(delta_time, self.player_controller.model.position,
                                         self.player_controller.model.position.angle)
-        self.player_controller.update(delta_time)
-        self.model.asteroid_model.set_player_position(self.model.player_model.position)
+
         self.model.asteroid_model.spawn_asteroids()
+
+        self.collectable_controller.update(delta_time, self.player_controller.model.position)
+

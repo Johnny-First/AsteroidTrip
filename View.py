@@ -2,7 +2,7 @@ import tkinter
 from player.PlayerView import *
 from asteroids.AsteroidView import *
 from UI import *
-
+from Collections.collectable_view import *
 
 class View:
     def __init__(self):
@@ -21,6 +21,7 @@ class View:
         self.root.update()
         self.asteroid_view = AsteroidView(self.HEIGHT, self.root, self.canvas)
         self.player_view = PlayerView(self.HEIGHT, self.root, self.canvas)
+        self.collectable_view = CollectableView
         self.ui = UI(self.HEIGHT, self.root, self.canvas)
 
     def on_motion(self, motion):

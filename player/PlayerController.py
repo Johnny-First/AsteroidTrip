@@ -14,6 +14,8 @@ class PlayerController:
         self.model.accelarate(delta_time)
         self.model.turn(delta_time)
         self.view.show_bullets(self.model.position, self.model.position.angle, self.model.gun.bullets)
+        if self.model.is_shooting:
+            self.model.shoot()
 
     def motion(self, event: tkinter.Event):
         return

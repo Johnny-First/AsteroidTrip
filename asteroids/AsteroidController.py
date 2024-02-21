@@ -10,3 +10,4 @@ class AsteroidController:
     def update(self, delta_time, player_position, player_angle):
         self.model.update(delta_time)
         self.view.set_position(player_position, player_angle, self.model.asteroids)
+        self.model.set_player_position(player_position)

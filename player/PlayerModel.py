@@ -17,7 +17,8 @@ class PlayerModel:
         self.time = 0
         self.is_accelerating = False
         self.turning_system = TurningSystem()
-
+        self.is_shooting = False
+        self.oxygen: float = 15
         self.gun = Gun()
 
     def turn(self, delta_time):

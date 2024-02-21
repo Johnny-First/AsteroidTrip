@@ -5,7 +5,7 @@ from player import bullets
 class Gun:
     _time: float = 1
 
-    def __init__(self, fire_rate=1):
+    def __init__(self, fire_rate=3):
         self.fire_rate = fire_rate
         self.bullets: list[bullets.Bullet] = []
 
